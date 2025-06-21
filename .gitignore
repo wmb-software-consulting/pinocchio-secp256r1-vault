@@ -3,3 +3,6 @@
 /test_tools
 /test-ledger
 /wallet
+.DS_Store
+/.env
+/.env.*
