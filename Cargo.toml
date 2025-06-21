@@ -1,0 +1,17 @@
+[package]
+name = "blueshift_secp256r1_vault"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bs58 = "0.5.1"
+pinocchio = "0.8.4"
+pinocchio-log = "0.4.0"
+pinocchio-pubkey = "0.2.4"
+pinocchio-secp256r1-instruction = "0.1.1"
+pinocchio-system = "0.2.3"
+
+
+[lib]
+crate-type = ["lib", "cdylib"]
+
