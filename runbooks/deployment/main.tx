@@ -1,0 +1,15 @@
+################################################################
+# Manage blueshift_secp256r1_vault deployment through Crypto Infrastructure as Code
+################################################################
+
+addon "svm" {
+    rpc_api_url = input.rpc_api_url
+    network_id = input.network_id
+}
+
+action "deploy_blueshift_secp256r1_vault" "svm::deploy_program" {
+    description = "Deploy blueshift_secp256r1_vault program"
+    program = svm::get_program_from_native_project("blueshift_secp256r1_vault") 
+    authority = signer.authority
+    payer = signer.payer
+}
