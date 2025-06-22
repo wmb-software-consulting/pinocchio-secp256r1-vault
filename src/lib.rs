@@ -15,7 +15,7 @@ entrypoint!(process_instruction);
 pub mod instructions;
 pub use instructions::*;
 
-pinocchio_pubkey::declare_id!("91tm9dq8Q3bb73eKQJZqKYr5BzftiMuybrdvKeBy1U6x");
+pinocchio_pubkey::declare_id!("HNUZnoUCPVg8NarCwoXsLRZEyvaZnp34DvYz4aSJTdHt");
 
 fn process_instruction(
     _program_id: &Pubkey,

@@ -84,7 +84,7 @@ export function getDepositInstructionDataEncoder(): Encoder<DepositInstructionDa
   return transformEncoder(
     getStructEncoder([
       ['discriminator', getU8Encoder()],
-      ['pubkey', fixEncoderSize(getBytesEncoder(), 40)],
+      ['pubkey', fixEncoderSize(getBytesEncoder(), 33)],
       ['amount', getU64Encoder()],
     ]),
     (value) => ({ ...value, discriminator: 0 })
@@ -94,7 +94,7 @@ export function getDepositInstructionDataEncoder(): Encoder<DepositInstructionDa
 export function getDepositInstructionDataDecoder(): Decoder<DepositInstructionData> {
   return getStructDecoder([
     ['discriminator', getU8Decoder()],
-    ['pubkey', fixDecoderSize(getBytesDecoder(), 40)],
+    ['pubkey', fixDecoderSize(getBytesDecoder(), 33)],
     ['amount', getU64Decoder()],
   ]);
 }

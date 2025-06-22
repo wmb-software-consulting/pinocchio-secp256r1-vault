@@ -11,14 +11,14 @@ import {
   getU8Encoder,
   type Address,
   type ReadonlyUint8Array,
-} from '@solana/kit';
+} from "@solana/kit";
 import {
   type ParsedDepositInstruction,
   type ParsedWithdrawInstruction,
-} from '../instructions';
+} from "../instructions";
 
 export const BLUESHIFT_SECP256R1_VAULT_PROGRAM_ADDRESS =
-  '91tm9dq8Q3bb73eKQJZqKYr5BzftiMuybrdvKeBy1U6x' as Address<'91tm9dq8Q3bb73eKQJZqKYr5BzftiMuybrdvKeBy1U6x'>;
+  "HNUZnoUCPVg8NarCwoXsLRZEyvaZnp34DvYz4aSJTdHt" as Address<"HNUZnoUCPVg8NarCwoXsLRZEyvaZnp34DvYz4aSJTdHt">;
 
 export enum BlueshiftSecp256r1VaultInstruction {
   Deposit,
@@ -28,7 +28,7 @@ export enum BlueshiftSecp256r1VaultInstruction {
 export function identifyBlueshiftSecp256r1VaultInstruction(
   instruction: { data: ReadonlyUint8Array } | ReadonlyUint8Array
 ): BlueshiftSecp256r1VaultInstruction {
-  const data = 'data' in instruction ? instruction.data : instruction;
+  const data = "data" in instruction ? instruction.data : instruction;
   if (containsBytes(data, getU8Encoder().encode(0), 0)) {
     return BlueshiftSecp256r1VaultInstruction.Deposit;
   }
@@ -36,12 +36,12 @@ export function identifyBlueshiftSecp256r1VaultInstruction(
     return BlueshiftSecp256r1VaultInstruction.Withdraw;
   }
   throw new Error(
-    'The provided instruction could not be identified as a blueshiftSecp256r1Vault instruction.'
+    "The provided instruction could not be identified as a blueshiftSecp256r1Vault instruction."
   );
 }
 
 export type ParsedBlueshiftSecp256r1VaultInstruction<
-  TProgram extends string = '91tm9dq8Q3bb73eKQJZqKYr5BzftiMuybrdvKeBy1U6x',
+  TProgram extends string = "HNUZnoUCPVg8NarCwoXsLRZEyvaZnp34DvYz4aSJTdHt",
 > =
   | ({
       instructionType: BlueshiftSecp256r1VaultInstruction.Deposit;

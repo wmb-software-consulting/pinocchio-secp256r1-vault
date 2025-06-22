@@ -5,9 +5,9 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-use solana_program::{pubkey, pubkey::Pubkey};
+use solana_program::{ pubkey, pubkey::Pubkey };
 
-
-  /// `blueshift_secp256r1_vault` program ID.
-  pub const BLUESHIFT_SECP256R1_VAULT_ID: Pubkey = pubkey!("91tm9dq8Q3bb73eKQJZqKYr5BzftiMuybrdvKeBy1U6x");
-
+/// `blueshift_secp256r1_vault` program ID.
+pub const BLUESHIFT_SECP256R1_VAULT_ID: Pubkey = pubkey!(
+    "HNUZnoUCPVg8NarCwoXsLRZEyvaZnp34DvYz4aSJTdHt"
+);

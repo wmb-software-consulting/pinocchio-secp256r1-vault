@@ -3,7 +3,7 @@ use core::{ mem::size_of, ptr };
 use pinocchio::{
     account_info::AccountInfo,
     program_error::ProgramError,
-    pubkey::find_program_address,
+    pubkey::{ find_program_address },
     sysvars::Sysvar,
     ProgramResult,
 };
@@ -49,6 +49,7 @@ impl<'a> TryFrom<&'a [AccountInfo]> for DepositAccounts<'a> {
     }
 }
 
+#[repr(C, packed)] // Ensure the struct is packed to avoid padding issues
 pub struct DepositInstructionData {
     pub pubkey: Secp256r1Pubkey,
     pub amount: u64,
@@ -61,11 +62,12 @@ impl<'a> TryFrom<&'a [u8]> for DepositInstructionData {
         if data.len() != size_of::<DepositInstructionData>() {
             return Err(ProgramError::InvalidInstructionData);
         }
-
         let pubkey = unsafe {
             ptr::read(data.as_ptr() as *const [u8; size_of::<Secp256r1Pubkey>()])
         };
-        let amount = unsafe { ptr::read(data.as_ptr().add(40) as *const u64) };
+        let amount = unsafe {
+            ptr::read(data.as_ptr().add(size_of::<Secp256r1Pubkey>()) as *const u64)
+        };
         Ok(Self { pubkey, amount })
     }
 }
@@ -107,7 +109,11 @@ impl<'a> Deposit<'a> {
         let rent_exempt_minimum = pinocchio::sysvars::rent::Rent
             ::get()?
             .minimum_balance(self.accounts.vault.data_len());
-        pinocchio_log::log!("Depositing: {} (+ {} for rent vault account)", amount, rent_exempt_minimum);
+        pinocchio_log::log!(
+            "Depositing: {} (+ {} for rent vault account)",
+            amount,
+            rent_exempt_minimum
+        );
         (Transfer {
             from: self.accounts.payer,
             to: self.accounts.vault,

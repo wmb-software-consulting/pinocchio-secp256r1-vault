@@ -15,3 +15,18 @@ pinocchio-system = "0.2.3"
 [lib]
 crate-type = ["lib", "cdylib"]
 
+
+[dev-dependencies]
+solana-sdk = "2.2.1"
+# mollusk-svm = "0.2.1"
+solana-program-runtime = ">=2.2,<=2.2.4"
+solana-feature-set = "^2.2.1"
+litesvm = "0.6.1"
+serde_json = "1.0.140"
+
+
+
+[features]
+no-bpf-entrypoint = []
+std = []
+test = ["no-bpf-entrypoint", "std"]

@@ -36,7 +36,7 @@ const typescriptClientsDir = path.join(__dirname, "..", "sdk", "ts");
 const root = rootNode(
   programNode({
     name: "blueshift-secp256r1-vault",
-    publicKey: "91tm9dq8Q3bb73eKQJZqKYr5BzftiMuybrdvKeBy1U6x",
+    publicKey: "HNUZnoUCPVg8NarCwoXsLRZEyvaZnp34DvYz4aSJTdHt",
     version: "1.0.0",
     accounts: [],
     instructions: [
@@ -56,7 +56,7 @@ const root = rootNode(
           }),
           instructionArgumentNode({
             name: "pubkey",
-            type: fixedSizeTypeNode(bytesTypeNode(), 40),
+            type: fixedSizeTypeNode(bytesTypeNode(), 33),
           }),
           instructionArgumentNode({
             name: "amount",

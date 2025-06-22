@@ -38,10 +38,6 @@ import {
 
 import { generateKeyPairSigner, type KeyPairSigner } from "gill";
 import { loadKeypairSignerFromFile } from "gill/node";
-import {
-  getAddMemoInstruction,
-  getCreateAccountInstruction,
-} from "gill/programs";
 import { Secp256r1Program } from "./secp256r1-program";
 import {
   addressToBytes,
@@ -57,7 +53,6 @@ import {
   getCompressedPublicKey,
 } from "./secp256r1-sign";
 import { KeyObject } from "crypto";
-import assert from "assert";
 
 const _1Sol = BigInt(1000000000); // 1 SOL = 1,000,000,000 lamports
 
@@ -81,9 +76,12 @@ describe("blueshift_secp256r1_vault", async () => {
     const { privateKeyObj, publicKeyObj } = generateKeyPair();
     ecdsaPrivateKey = privateKeyObj;
     signer = await generateKeyPairSigner();
+
+    //DxaZaBY5JFzjHfFHrVYvvBC9qpoMM72N57xHHQv7waKR
+    signer = await loadKeypairSignerFromFile("./tests/my-test-wallet.json");
+
     ecdsaPublicKey = getCompressedPublicKey(publicKeyObj);
     console.log("Signer address:", signer.address);
-
     await requestAirdrop(rpc, signer.address, _1Sol);
 
     const [_vaultAddress, _vaultBump] = await getProgramDerivedAddress({
@@ -111,7 +109,7 @@ describe("blueshift_secp256r1_vault", async () => {
       payer: signer,
       pubkey: ecdsaPublicKey,
       vault: vaultAddress as AddressType,
-      amount: BigInt(890880) as Lamports, // 0.00089088 SOL is the minimum deposit amount for the vault rent 
+      amount: BigInt(890880) as Lamports, // 0.00089088 SOL is the minimum deposit amount for the vault rent
     });
 
     // get the latest blockhash
@@ -157,7 +155,6 @@ describe("blueshift_secp256r1_vault", async () => {
 
     // generate message to sign
     const message = Buffer.concat([payerBytes, expirationBytes]);
-
     const { rawSignature } = generateSignature(message, ecdsaPrivateKey);
 
     const ixSecp256r1 = Secp256r1Program.createInstructionWithPublicKey({

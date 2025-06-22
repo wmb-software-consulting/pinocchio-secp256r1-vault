@@ -1,6 +1,8 @@
+
+
+
 generate-sdks:
 	yarn generate-sdks
-
 
 build:
 	yarn build
@@ -34,3 +36,7 @@ my-wallet:
  
 start-test-validator:
 	solana-test-validator -r
+
+test-rust:
+	cargo build-sbf
+	cargo test --features test --test vault

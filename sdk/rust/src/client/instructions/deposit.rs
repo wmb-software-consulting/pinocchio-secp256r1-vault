@@ -84,7 +84,7 @@ impl Default for DepositInstructionData {
 #[derive(BorshSerialize, BorshDeserialize, Clone, Debug, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
  pub struct DepositInstructionArgs {
-                  pub pubkey: [u8; 40],
+                  pub pubkey: [u8; 33],
                 pub amount: u64,
       }
 
@@ -101,7 +101,7 @@ pub struct DepositBuilder {
             payer: Option<solana_program::pubkey::Pubkey>,
                 vault: Option<solana_program::pubkey::Pubkey>,
                 system_program: Option<solana_program::pubkey::Pubkey>,
-                        pubkey: Option<[u8; 40]>,
+                        pubkey: Option<[u8; 33]>,
                 amount: Option<u64>,
         __remaining_accounts: Vec<solana_program::instruction::AccountMeta>,
 }
@@ -130,7 +130,7 @@ impl DepositBuilder {
                     self
     }
                     #[inline(always)]
-      pub fn pubkey(&mut self, pubkey: [u8; 40]) -> &mut Self {
+      pub fn pubkey(&mut self, pubkey: [u8; 33]) -> &mut Self {
         self.pubkey = Some(pubkey);
         self
       }
@@ -331,7 +331,7 @@ impl<'a, 'b> DepositCpiBuilder<'a, 'b> {
                     self
     }
                     #[inline(always)]
-      pub fn pubkey(&mut self, pubkey: [u8; 40]) -> &mut Self {
+      pub fn pubkey(&mut self, pubkey: [u8; 33]) -> &mut Self {
         self.instruction.pubkey = Some(pubkey);
         self
       }
@@ -386,7 +386,7 @@ struct DepositCpiBuilderInstruction<'a, 'b> {
             payer: Option<&'b solana_program::account_info::AccountInfo<'a>>,
                 vault: Option<&'b solana_program::account_info::AccountInfo<'a>>,
                 system_program: Option<&'b solana_program::account_info::AccountInfo<'a>>,
-                        pubkey: Option<[u8; 40]>,
+                        pubkey: Option<[u8; 33]>,
                 amount: Option<u64>,
         /// Additional instruction accounts `(AccountInfo, is_writable, is_signer)`.
   __remaining_accounts: Vec<(&'b solana_program::account_info::AccountInfo<'a>, bool, bool)>,
